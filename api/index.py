@@ -6,7 +6,7 @@ import pandas as pd
 app = Flask(__name__)
 
 def generate_dummy_data(page_size=100):
-    data_csv = pd.read_csv('data/order.csv')
+    data_csv = pd.read_csv('data/dellstore_API.csv')
     data_dict = data_csv.to_dict('records')
     return data_dict
 
@@ -33,7 +33,7 @@ def get_dummy_data():
         return jsonify({"message": "Invalid date format. Use YYYY-MM-DD format"}), 400
 
     data_for_page = dummy_data.get(page, [])
-    filtered_data = [item for item in data_for_page if start_date <= datetime.strptime(item['order_date'], '%Y-%m-%d %H:%M:%S.%f') <= end_date]
+    filtered_data = [item for item in data_for_page if start_date <= datetime.strptime(item['order_date'], '%Y-%m-%d') <= end_date]
 
     return jsonify(filtered_data)
 
